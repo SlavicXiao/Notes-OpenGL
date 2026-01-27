@@ -1,4 +1,4 @@
-#include"VBO.h"
+#include"VBO.hpp"
 
 //Link VBO to vertices 
 VBO::VBO(GLfloat* vertices, GLsizeiptr size)
