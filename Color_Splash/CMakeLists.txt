@@ -7,8 +7,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB_RECURSE PROJECT_SOURCES
      CONFIGURE_DEPENDS
      src/*.cpp
-     headers/*.hpp
-     headers/*.h
+     src/*.h
 )
 
 add_executable(${PROJECT_NAME}
