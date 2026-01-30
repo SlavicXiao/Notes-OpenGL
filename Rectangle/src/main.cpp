@@ -23,10 +23,10 @@ void Input(GLFWwindow* window)
 
 GLfloat vertices[] = 
 {
-    0.5f, 0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f,
-    -0.5f, 0.5f, 0.0f
+     0.5f,  0.5f, 0.0f, //top right
+     0.5f, -0.5f, 0.0f, //bottm right
+    -0.5f, -0.5f, 0.0f, //bottom left
+    -0.5f,  0.5f, 0.0f  //top left
 };
 
 GLuint indices[]
@@ -68,7 +68,7 @@ int main()
     VBO VBO1(vertices, sizeof(vertices));
     EBO EBO1(indices, sizeof(indices));
 
-    VAO1.LinkVBO(VBO1, 0);
+    VAO1.LinkVBO(VBO1, 0, 3, 0);
 
     VAO1.Unbind();
     VBO1.Unbind();
@@ -81,14 +81,16 @@ int main()
         glClearColor(0.1f, 0.1f, 0.1f, 0.0f);
         glClear(GL_COLOR_BUFFER_BIT);
 
+        float timeValue = glfwGetTime();
         shaderProgram.Activate();
 
-        float timeValue = glfwGetTime();
-        float redValue = (sin(timeValue) / 2.0f) + 0.3f;
-        float blueValue = (sin(timeValue) / 2.0f) + 0.3f;
-        int vertexColorLocation = glGetUniformLocation(shaderProgram.ID, "ourColor");
+        float timeLocation = glGetUniformLocation(shaderProgram.ID, "Time");
+        float colorLocaton1 = glGetUniformLocation(shaderProgram.ID, "Color1");
+        float colorLocaton2 = glGetUniformLocation(shaderProgram.ID, "Color2");
 
-        glUniform4f(vertexColorLocation, redValue, 0.0f, blueValue, 1.0f);
+        glUniform1f(timeLocation, timeValue);
+        glUniform3f(colorLocaton1, 1.0f, 0.0f, 1.0f);
+        glUniform3f(colorLocaton2, 0.0f, 1.0f, 1.0f);
 
         VAO1.Bind();
 
