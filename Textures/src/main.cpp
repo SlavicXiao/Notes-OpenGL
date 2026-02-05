@@ -8,6 +8,7 @@
 #include"VAO.hpp"
 #include"VBO.hpp"
 #include"EBO.hpp"
+#include"Texture.hpp"
 
 void Resize(GLFWwindow* window, int w, int h)
 {
@@ -79,37 +80,7 @@ int main()
     EBO1.Unbind();
 
     GLuint scaleID = glGetUniformLocation(shaderProgram.ID, "scale");
-
-    int imgWidth, imgHeight, numColCh;
-    unsigned char* bytes = stbi_load("../textures/strawberries.png", &imgWidth, &imgHeight, &numColCh, 0);
-
-    if (!bytes)
-    {
-        std::cout << "Failed to load texture\n";
-        std::cout << stbi_failure_reason() << std::endl;
-    }
-
-    GLuint texture;
-
-    stbi_set_flip_vertically_on_load(true);
-
-    glGenTextures(1, &texture);
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, texture);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-
-    GLenum format = (numColCh == 4) ? GL_RGBA : GL_RGB;
-    glTexImage2D(GL_TEXTURE_2D, 0, format, imgWidth, imgHeight, 0, format, GL_UNSIGNED_BYTE, bytes);
-    glGenerateMipmap(GL_TEXTURE_2D);
-    
-    stbi_image_free(bytes);
-    glBindTexture(GL_TEXTURE_2D, 0);
-
+    Texture texture(0, "../textures/strawberries.png", 512, 512, 3);
     GLuint tex0Uni = glGetUniformLocation(shaderProgram.ID, "tex0");
 
     shaderProgram.Activate();
@@ -125,17 +96,9 @@ int main()
         float timeValue = glfwGetTime();
         shaderProgram.Activate();
 
-        //float timeLocation = glGetUniformLocation(shaderProgram.ID, "Time");
-        //float colorLocaton1 = glGetUniformLocation(shaderProgram.ID, "Color1");
-        //float colorLocaton2 = glGetUniformLocation(shaderProgram.ID, "Color2");
-
-        //glUniform1f(timeLocation, timeValue);
-        //glUniform3f(colorLocaton1, 1.0f, 0.0f, 1.0f);
-        //glUniform3f(colorLocaton2, 0.0f, 1.0f, 1.0f);
-
         glUniform1f(scaleID, 1.5f);
         glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
+        glBindTexture(GL_TEXTURE_2D, texture.ID);
     
         VAO1.Bind();
 
@@ -148,7 +111,7 @@ int main()
     VBO1.Delete();
     EBO1.Delete();
     shaderProgram.Delete();
-    glDeleteTextures(1, &texture);
+    glDeleteTextures(1, &texture.ID);
 
     glfwTerminate();    
     return 0;
