@@ -108,7 +108,6 @@ int main()
 		glfwPollEvents();
 	}
 
-
 	// Delete trash
 	VAO1.Delete();
 	VBO1.Delete();
