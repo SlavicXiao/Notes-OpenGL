@@ -1,6 +1,4 @@
 #pragma once
-#ifndef SHADER_CLASS_HPP
-#define SHADER_CLASS_HPP
 
 #include<glad/glad.h>
 #include<string>
@@ -20,5 +18,3 @@ class Shader
     void Activate();
     void Delete();
 };
-
-#endif

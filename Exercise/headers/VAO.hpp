@@ -1,12 +1,14 @@
 #pragma once
 
 #include<glad/glad.h>
+#include"VBO.hpp"
 
-class VBO
+class VAO
 {
 public:
     GLuint ID;
-    VBO(GLfloat* vertices);
+    VAO();
+    void LinkVBO(VBO& VBO1, GLuint layout, GLuint stride, GLuint ptr);
     void Bind();
     void Unbind();
     void Delete();
