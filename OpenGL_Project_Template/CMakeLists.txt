@@ -13,13 +13,13 @@ file(GLOB_RECURSE PROJECT_SOURCES
 
 add_executable(${PROJECT_NAME}
     ${PROJECT_SOURCES}
-    glad/src/glad.c
+    ../Libraries/glad/src/glad.c
 )
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     src
     headers
-    glad/include
+    ../Libraries/glad/include
 )
 
 find_package(glfw3 CONFIG REQUIRED)

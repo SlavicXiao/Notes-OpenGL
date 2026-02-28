@@ -12,14 +12,14 @@
 
     add_executable(${PROJECT_NAME}
         ${PROJECT_SOURCES}
-        libraries/glad/src/glad.c
+        ../Libraries/glad/src/glad.c
     )
 
     target_include_directories(${PROJECT_NAME} PRIVATE
         src
         headers
-        libraries/glad/include
-        libraries/stb
+        ../Libraries/glad/include
+        ../Libraries/stb
     )
 
     find_package(glfw3 CONFIG REQUIRED)

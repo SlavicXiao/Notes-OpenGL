@@ -7,12 +7,12 @@ file(GLOB_RECURSE PROJECT_SOURCES
     headers/*.hpp
 )
 
-add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} libraries/glad/src/glad.c)
+add_executable(${PROJECT_NAME} ${PROJECT_SOURCES} ../Libraries/glad/src/glad.c)
 
 target_include_directories(${PROJECT_NAME} PRIVATE
     src
     headers
-    libraries/glad/include
+    ../Libraries/glad/include
 )
 
 find_package(glfw3 CONFIG REQUIRED)
