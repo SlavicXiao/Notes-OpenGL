@@ -94,9 +94,10 @@ int main()
         glClear(GL_COLOR_BUFFER_BIT);
 
         float timeValue = glfwGetTime();
+        double scale = abs(sin(timeValue));
         shaderProgram.Activate();
 
-        glUniform1f(scaleID, 1.5f);
+        glUniform1f(scaleID, scale);
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, texture.ID);
     
